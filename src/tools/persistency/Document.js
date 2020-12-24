@@ -5,6 +5,18 @@ export class Document {
         this._mongooseDocument = mongooseDocument;
     }
 
+    async getField(name) {
+        return this._mongooseDocument[name];
+    }
+
+    async setField(name, value) {
+        this._mongooseDocument[name] = value;
+    }
+
+    async save() {
+        await this._mongooseDocument.save();
+    }
+
     toPlainObject() {
         const result = {};
         for (const key in this._model.getSchema()) {

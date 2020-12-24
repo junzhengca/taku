@@ -2,6 +2,9 @@ import {HttpServer} from '@tools/httpserver/HttpServer';
 import {initializePersistency} from '@tools/persistency';
 import {gql} from 'apollo-server-express';
 import {RoomController} from '@apps/api/controllers/RoomController';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const server = new HttpServer({
     port: 5000,
@@ -13,6 +16,8 @@ const server = new HttpServer({
 
         type Mutation {
             createRoom(input: CreateRoomInput!): Room!
+            updateRoom(input: UpdateRoomInput!): Room!
+            deleteRoom(input: DeleteRoomInput!): Boolean!
         }
 
         type Room {
@@ -23,6 +28,15 @@ const server = new HttpServer({
         input CreateRoomInput {
             name: String!
         }
+
+        input UpdateRoomInput {
+            id: String!
+            name: String
+        }
+
+        input DeleteRoomInput {
+            id: String!
+        }
     `,
     gqlResolvers: {
         Query: {
@@ -30,6 +44,7 @@ const server = new HttpServer({
         },
         Mutation: {
             createRoom: RoomController.createRoom,
+            updateRoom: RoomController.updateRoom,
         }
     }
 });
