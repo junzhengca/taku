@@ -28,4 +28,14 @@ export class RoomController {
         }
     }
 
+    static async deleteRoom(obj, args, context) {
+        const room = await RoomService.getRoomById(args['input']['id']);
+        if (!room) {
+            throw new Error(`The room you are trying to delete cannot be found.`);
+        } else {
+            await room.delete();
+            return true;
+        }
+    }
+
 }

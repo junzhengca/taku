@@ -17,6 +17,10 @@ export class Document {
         await this._mongooseDocument.save();
     }
 
+    async delete() {
+        await this._mongooseDocument.delete();
+    }
+
     toPlainObject() {
         const result = {};
         for (const key in this._model.getSchema()) {

@@ -45,6 +45,7 @@ const server = new HttpServer({
         Mutation: {
             createRoom: RoomController.createRoom,
             updateRoom: RoomController.updateRoom,
+            deleteRoom: RoomController.deleteRoom,
         }
     }
 });
